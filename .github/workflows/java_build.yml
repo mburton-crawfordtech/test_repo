@@ -12,7 +12,7 @@ on:
 jobs:
   jar_build:
     uses:
-      mburton-crawfordtech/test_workflows/.github/workflows/maven.yml@main
+      mburton-crawfordtech/test_workflows/.github/workflows/java-maven-build.yml@main
 
     # runs-on: ubuntu-latest
 
