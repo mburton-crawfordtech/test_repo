@@ -11,10 +11,12 @@ on:
 
 jobs:
   jar_build:
-    runs-on: ubuntu-latest
+    uses: mburton-crawfordtech/test_workflows/.github/workflows/maven.yml@main
 
-    steps:
-      - uses: mburton-crawfordtech/test_workflows/.github/workflows/maven.yml@main
+    # runs-on: ubuntu-latest
+
+    # steps:
+      # - uses: mburton-crawfordtech/test_workflows/.github/workflows/maven.yml@main
     #   - uses: actions/checkout@v3
     #   - name: Set up JDK 11
     #     uses: actions/setup-java@v3
