@@ -22,7 +22,6 @@ jobs:
       # java-version: '17'
       maven-params: '-DskipTests'
       # working-directory: './foo/'
-      # token: '${{ secrets.GITHUB_TOKEN }}'
       # token: '${{ secrets.PACKAGE_REPO_TOKEN }}'
-    secrets:
-      token: ${{ secrets.GITHUB_TOKEN }} # pass just this secret
+    # secrets:
+    #   token: ${{ secrets.GITHUB_TOKEN }} # pass just this secret
