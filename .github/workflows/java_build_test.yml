@@ -1,0 +1,39 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Java build test
+
+on:
+  # push:
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  jar_build:
+    runs-on: ubuntu-latest
+ 
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 11.0.2
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11.0
+          server-id: github # value of repository/id field of the pom.xml
+          server-username: GITHUB_USER_REF  # env variable name for username
+          server-password: GITHUB_TOKEN_REF # env variable name for GitHub Personal Access Token
+ 
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+        env:
+          GITHUB_USER_REF: 'mburton-crawfordtech'
+          GITHUB_TOKEN_REF: ${{ secrets.PACKAGE_REPO_TOKEN }}
+
+    # uses:
+    #   mburton-crawfordtech/test_workflows/.github/workflows/java-maven-build.yml@main
+    # with:
+    #   # java-version: '17'
+    #   maven-params: '-DskipTests'
+    #   # working-directory: './foo/'
+    # secrets:
+    #   token: ${{ secrets.PACKAGE_REPO_TOKEN }} # pass just this secret
