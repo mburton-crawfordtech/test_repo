@@ -13,3 +13,7 @@ jobs:
   jar_build:
     uses:
       mburton-crawfordtech/test_workflows/.github/workflows/java-maven-build.yml@main
+    with:
+      java-version: '17'
+      maven-params: '-DskipTests'
+      
