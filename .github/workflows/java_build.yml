@@ -17,4 +17,5 @@ jobs:
       # java-version: '17'
       maven-params: '-DskipTests'
       # working-directory: './foo/'
-      # token: ${{ secrets.PACKAGE_REPO_TOKEN }}
+    secrets:
+      token: ${{ secrets.PACKAGE_REPO_TOKEN }} # pass just this secret

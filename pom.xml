@@ -28,7 +28,7 @@
     </dependency>
 
     <!-- Test dependency -->
-    <!-- <dependency>
+    <dependency>
       <groupId>com.crawfordtech.csaas</groupId>
       <artifactId>csaas_db_api</artifactId>
       <version>${csaas_db_lib.version}</version>
@@ -39,7 +39,7 @@
           <groupId>org.springdoc</groupId>
         </exclusion>
       </exclusions>
-    </dependency> -->
+    </dependency>
 
   </dependencies>
 
@@ -91,7 +91,7 @@
 
   <!-- Pull internal dependences from GitHub repo -->
   <repositories>
-    <!-- <repository>
+    <repository>
       <id>github</id>
       <url>https://maven.pkg.github.com/crawfordtech-dev/*</url>
       <releases>
@@ -100,7 +100,7 @@
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
-    </repository> -->
+    </repository>
   </repositories>
 
   <distributionManagement>
