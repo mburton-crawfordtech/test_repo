@@ -22,6 +22,8 @@ jobs:
       packages: write
       
     steps:
+      - run: echo '${{ toJSON(github) }}'
+
       # setup env vars
       ## Get the repository name and convert it to lowercase
       ##  because the Docker image name must be in all lowercase.
@@ -31,8 +33,8 @@ jobs:
       - name: get project name
         run: echo "PROJECT=${IMAGE_NAME#*/}" >>${GITHUB_ENV}
 
-      - run: echo ${{ env.IMAGE_NAME }}
-      - run: echo ${{ env.PROJECT }}
+      # - run: echo ${{ env.IMAGE_NAME }}
+      # - run: echo ${{ env.PROJECT }}
 
       - uses: actions/checkout@v3
 
@@ -56,12 +58,16 @@ jobs:
       #     key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
       #     restore-keys: ${{ runner.os }}-maven-
 
+      - name: Get Maven project version
+        id: version
+        run: echo "version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
       # Build Java code and get project version (from POM)
       - name: Build with Maven
         id: build
         run: |
           mvn --batch-mode clean package -DskipTests
-          echo ::set-output name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+
+        # echo version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec) >> $GITHUB_STATE
         env:
           # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # can't use GITHUB_TOKEN because we need to pull from a different project
