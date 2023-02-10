@@ -44,11 +44,9 @@ jobs:
           java-version: "11"
           distribution: "temurin"
           cache: maven
-          # cache: 'maven'  # should do the same as actions/cache
           # server-id: github # value of repository/id field of the pom.xml
-          server-password: GITHUB_TOKEN_REF # env variable name for GitHub Personal Access Token
           # server-username: GITHUB_USER_REF # env variable name for username
-          # server-password: GITHUB_TOKEN_REF # env variable name for GitHub Persona
+          server-password: GITHUB_TOKEN_REF # env variable name for GitHub Persona
 
       # Cache save and restore for Maven local .m2 repository
       # - name: Cache local Maven repository
@@ -61,18 +59,17 @@ jobs:
    
       - name: Get Maven project version
         id: version
-        run: echo "version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+        run: |
+          echo "version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+          echo ${{ steps.version.outputs.version }}     
 
-      - run: echo ${{ steps.version.outputs.version }}
-        
-        
       # Build Java code and get project version (from POM)
+      # sets an output the the POM file fersion
       - name: Build with Maven
         id: build
         run: |
           mvn --batch-mode clean package -DskipTests
-
-        # echo version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec) >> $GITHUB_STATE
+          echo "version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
         env:
           # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # can't use GITHUB_TOKEN because we need to pull from a different project
@@ -95,7 +92,6 @@ jobs:
       - name: STOP
         run: 'foo'
      
-
       - name: Log in to the Container registry
         uses: docker/login-action@v2
         with:
@@ -114,9 +110,11 @@ jobs:
           tags: |
             ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.build.outputs.version }}
             ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           # cache-from: type=local,src=/tmp/.buildx-cache
           # cache-to: type=local,dest=/tmp/.buildx-cache
-      - name: echo image name
+      - name: echo image names
         run: |
           echo ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.build.outputs.version }}
           echo ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:latest
