@@ -10,6 +10,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  jar_build:
+  jar_build_deploy:
+    permissions:
+      contents: read
+      packages: write
+      
     uses:
       mburton-crawfordtech/test_workflows/.github/workflows/java-maven-deploy.yml@main
