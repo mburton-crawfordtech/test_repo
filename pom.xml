@@ -6,7 +6,7 @@
 
   <groupId>com.mycompany.app</groupId>
   <artifactId>my-app</artifactId>
-  <version>1.0.3-SNAPSHOT</version>
+  <version>1.0.4-SNAPSHOT</version>
 
   <name>my-app</name>
   <!-- FIXME change it to the project's website -->
@@ -15,8 +15,8 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>
-      11</maven.compiler.target>
+    <maven.compiler.target>11</maven.compiler.target>
+    <csaas_db_lib.version>1.0.14-SNAPSHOT</csaas_db_lib.version>
   </properties>
 
   <dependencies>
@@ -26,6 +26,21 @@
       <version>4.13.2</version>
       <scope>test</scope>
     </dependency>
+
+    <!-- Test dependency -->
+    <!-- <dependency>
+      <groupId>com.crawfordtech.csaas</groupId>
+      <artifactId>csaas_db_api</artifactId>
+      <version>${csaas_db_lib.version}</version>
+      <classifier>lib</classifier>
+      <exclusions>
+        <exclusion>
+          <artifactId>*</artifactId>
+          <groupId>org.springdoc</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency> -->
+
   </dependencies>
 
   <build>
@@ -73,6 +88,21 @@
       </plugins>
     </pluginManagement>
   </build>
+
+  <!-- Pull internal dependences from GitHub repo -->
+  <repositories>
+    <!-- <repository>
+      <id>github</id>
+      <url>https://maven.pkg.github.com/crawfordtech-dev/*</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository> -->
+  </repositories>
+
   <distributionManagement>
     <repository>
       <id>github</id>

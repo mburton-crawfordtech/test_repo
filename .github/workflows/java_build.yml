@@ -4,7 +4,7 @@
 name: Java build
 
 on:
-  push:
+  # push:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -14,6 +14,7 @@ jobs:
     uses:
       mburton-crawfordtech/test_workflows/.github/workflows/java-maven-build.yml@main
     with:
-      java-version: '17'
+      # java-version: '17'
       maven-params: '-DskipTests'
-      working-directory: './foo/'
+      # working-directory: './foo/'
+      # token: ${{ secrets.PACKAGE_REPO_TOKEN }}
