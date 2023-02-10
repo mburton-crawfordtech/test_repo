@@ -58,9 +58,14 @@ jobs:
       #     key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
       #     restore-keys: ${{ runner.os }}-maven-
 
+   
       - name: Get Maven project version
         id: version
         run: echo "version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+
+      - run: echo ${{ steps.version.outputs.version }}
+        
+        
       # Build Java code and get project version (from POM)
       - name: Build with Maven
         id: build
@@ -86,6 +91,10 @@ jobs:
       #     path: /tmp/.buildx-cache
       #     key: ${{ runner.os }}-buildx-${{ github.sha }}
       #     restore-keys: ${{ runner.os }}-buildx
+
+      - name: STOP
+        run: 'foo'
+     
 
       - name: Log in to the Container registry
         uses: docker/login-action@v2
