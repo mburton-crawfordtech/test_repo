@@ -1,122 +1,25 @@
 # This workflow will build a Java project with Maven
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: Publish Docker image to GitHub Packages
+name: Java build
 
 on:
   # push:
-  #   branches:
-  #     - master
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-env:
-  DOCKER_REGISTRY: ghcr.io
-
 jobs:
-  image_build:
-    runs-on: ubuntu-latest
+  jar_build:
+    # Add write permission to packages so it can push to the Maven repository
     permissions:
       contents: read
       packages: write
-      
-    steps:
-      - run: echo '${{ toJSON(github) }}'
-
-      # setup env vars
-      ## Get the repository name and convert it to lowercase
-      ##  because the Docker image name must be in all lowercase.
-      - name: downcase GITHUB_REPOSITORY for Docker image name
-        run: echo "IMAGE_NAME=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
-      ## get just the project name part.
-      - name: get project name
-        run: echo "PROJECT=${IMAGE_NAME#*/}" >>${GITHUB_ENV}
-
-      # - run: echo ${{ env.IMAGE_NAME }}
-      # - run: echo ${{ env.PROJECT }}
-
-      - uses: actions/checkout@v3
-
-      - name: Set up JDK 11
-        uses: actions/setup-java@v3
-        with:
-          java-version: "11"
-          distribution: "temurin"
-          cache: maven
-          # server-id: github # value of repository/id field of the pom.xml
-          # server-username: GITHUB_USER_REF # env variable name for username
-          server-password: GITHUB_TOKEN_REF # env variable name for GitHub Persona
-
-      # Cache save and restore for Maven local .m2 repository
-      # - name: Cache local Maven repository
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: ~/.m2/repository
-      #     key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-      #     restore-keys: ${{ runner.os }}-maven-
-
-   
-      - name: Get Maven project version
-        id: version
-        run: |
-          echo "version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
-          echo ${{ steps.version.outputs.version }}     
-
-      # Build Java code and get project version (from POM)
-      # sets an output the the POM file fersion
-      - name: Build with Maven
-        id: build
-        run: |
-          mvn --batch-mode clean package -DskipTests
-          echo "version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
-        env:
-          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # can't use GITHUB_TOKEN because we need to pull from a different project
-          GITHUB_TOKEN_REF: ${{ secrets.PACKAGE_REPO_TOKEN }}
-          # GITHUB_USER_REF: ${{ secrets.PACKAGE_REPO_USERNAME }}
-          # GITHUB_TOKEN_REF: ${{ secrets.PACKAGE_REPO_PASSWORD }}
-
-      ## build the Docker image and push it to packages
-      # - name: Set up Docker Buildx
-      #   id: buildx
-      #   uses: docker/setup-buildx-action@v2
-
-      # - name: Cache Docker layers
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: /tmp/.buildx-cache
-      #     key: ${{ runner.os }}-buildx-${{ github.sha }}
-      #     restore-keys: ${{ runner.os }}-buildx
-
-     
-      - name: Log in to the Container registry
-        uses: docker/login-action@v2
-        with:
-          registry: ${{ env.DOCKER_REGISTRY }}
-          username: ${{ github.actor }}
-          # username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: docker/setup-buildx-action@v2
-
-      - name: Build and push Docker image
-        id: docker_build
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          # builder: ${{ steps.buildx.outputs.name }}
-          push: true
-          tags: |
-            ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.build.outputs.version }}
-            ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          # cache-from: type=local,src=/tmp/.buildx-cache
-          # cache-to: type=local,dest=/tmp/.buildx-cache
-      - name: echo image names
-        run: |
-          echo ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.build.outputs.version }}
-          echo ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-      - name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
+    uses:
+      mburton-crawfordtech/test_workflows/.github/workflows/docker-upload.yml@main
+    with:
+      # java-version: '17'
+      maven-params: '-DskipTests'
+      # working-directory: './foo/'
+    secrets:
+      token: ${{ secrets.PACKAGE_REPO_TOKEN }} # pass just this secret
