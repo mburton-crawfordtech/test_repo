@@ -1,10 +1,7 @@
-# This workflow will build a Java project with Maven
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
-
 name: Java build
 
 on:
-  # push:
+  push:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -13,9 +10,9 @@ jobs:
   jar_build:
     uses:
       mburton-crawfordtech/test_workflows/.github/workflows/java-maven-build.yml@main
-    with:
-      # java-version: '17'
-      maven-params: '-DskipTests'
+    # with:
+      # java-version: 11.0
+      # maven-params: '-DskipTests'
       # working-directory: './foo/'
-    secrets:
-      token: ${{ secrets.PACKAGE_REPO_TOKEN }} # pass just this secret
+    # secrets:
+    #   token: ${{ secrets.PACKAGE_REPO_TOKEN }} # pass just this secret

@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  jar_build:
+  jar_release:
     runs-on: ubuntu-latest
     # Add write permission to packages so it can update the pom version and push to the Maven repository
     permissions:
