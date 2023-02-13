@@ -15,7 +15,8 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
+    <maven.compiler.target>
+      11</maven.compiler.target>
     <csaas_db_lib.version>1.0.14-SNAPSHOT</csaas_db_lib.version>
   </properties>
 
@@ -85,6 +86,11 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.4.2</version>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>2.5.3</version>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
@@ -110,4 +116,11 @@
       <url>https://maven.pkg.github.com/mburton-crawfordtech/test_repo</url>
     </repository>
   </distributionManagement>
+
+  <scm>
+    <connection>scm:git:https://github.com/mburton-crawfordtech/test_repo.git</connection>
+    <developerConnection>scm:git:https://github.com/mburton-crawfordtech/test_repo.git</developerConnection>
+    <url>https://github.com/mburton-crawfordtech/test_repo</url>
+  </scm>
+
 </project>
