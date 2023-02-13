@@ -1,4 +1,4 @@
-name: Java maven release '-DskipTests'
+name: Java maven release test
 
 on:
   # push:
@@ -36,5 +36,5 @@ jobs:
       - name: Build with Maven
         run: mvn -B release:prepare release:perform --file pom.xml
         env:
-          # GITHUB_TOKEN_REF: ${{ secrets.PACKAGE_REPO_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN_REF: ${{ secrets.PACKAGE_REPO_TOKEN }} # to access other private repos
+          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
