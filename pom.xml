@@ -29,7 +29,7 @@
     </dependency>
 
     <!-- Test dependency -->
-    <dependency>
+    <!-- <dependency>
       <groupId>com.crawfordtech.csaas</groupId>
       <artifactId>csaas_db_api</artifactId>
       <version>${csaas_db_lib.version}</version>
@@ -40,7 +40,7 @@
           <groupId>org.springdoc</groupId>
         </exclusion>
       </exclusions>
-    </dependency>
+    </dependency> -->
 
   </dependencies>
 
