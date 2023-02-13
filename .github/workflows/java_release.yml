@@ -9,7 +9,11 @@ on:
 jobs:
   jar_build:
     runs-on: ubuntu-latest
- 
+    # Add write permission to packages so it can update the pom version and push to the Maven repository
+    permissions:
+      contents: write
+      packages: write
+
     steps:
     # - run: echo '${{ toJSON(github) }}'
 
@@ -26,7 +30,7 @@ jobs:
  
       - name: Configure Git User
         run: |
-          git config user.email "actions@crawfordtech.com"
+          git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
 
       - name: Build with Maven
