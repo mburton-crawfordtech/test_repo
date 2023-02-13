@@ -5,7 +5,7 @@
 
   <groupId>com.mycompany.app</groupId>
   <artifactId>my-app</artifactId>
-  <version>1.0.5</version>
+  <version>1.0.6-SNAPSHOT</version>
 
   <name>my-app</name>
   <!-- FIXME change it to the project's website -->
@@ -120,7 +120,7 @@
     <connection>scm:git:https://github.com/mburton-crawfordtech/test_repo.git</connection>
     <developerConnection>scm:git:https://github.com/mburton-crawfordtech/test_repo.git</developerConnection>
     <url>https://github.com/mburton-crawfordtech/test_repo</url>
-    <tag>my-app-1.0.5</tag>
+    <tag>HEAD</tag>
   </scm>
 
 </project>
