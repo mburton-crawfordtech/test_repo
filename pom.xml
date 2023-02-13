@@ -28,6 +28,11 @@
     </dependency>
 
     <!-- Test dependency -->
+    <dependency>
+      <groupId>com.crawford</groupId>
+      <artifactId>csimpl_db_api</artifactId>
+      <version>1.0.2</version>
+    </dependency>
     <!-- <dependency>
       <groupId>com.crawfordtech.csaas</groupId>
       <artifactId>csaas_db_api</artifactId>
