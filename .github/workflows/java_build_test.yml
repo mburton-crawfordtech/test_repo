@@ -25,14 +25,13 @@ jobs:
           cache: maven
           # server-id: github # value of repository/id field of the pom.xml
           # server-username: GITHUB_USER_REF  # env variable name for username
-          # server-password: GITHUB_TOKEN_REF # env variable name for GitHub Personal Access Token
+          server-password: GITHUB_TOKEN_REF # env variable name for GitHub Personal Access Token
  
       - name: Build with Maven
         run: mvn -B package --file pom.xml
         env:
           # GITHUB_USER_REF: 'foo'
-          # GITHUB_TOKEN_REF: ${{ secrets.PACKAGE_REPO_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN_REF: ${{ secrets.PACKAGE_REPO_TOKEN }}
 
     # uses:
     #   mburton-crawfordtech/test_workflows/.github/workflows/java-maven-build.yml@main
