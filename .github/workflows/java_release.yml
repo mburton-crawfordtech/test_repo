@@ -21,5 +21,5 @@ jobs:
       # working-directory: './foo/'
       # token: '${{ secrets.PACKAGE_REPO_TOKEN }}'
     secrets:
-      token: ${{ secrets.PACKAGE_REPO_TOKEN }} # pass just this secret
-    #   token: ${{ secrets.GITHUB_TOKEN }} # pass just this secret
+      token: ${{ secrets.PACKAGE_REPO_TOKEN }} # pass token to access other private dependencies
+      # token: ${{ secrets.GITHUB_TOKEN }} # otherwise pass the default token

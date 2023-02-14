@@ -20,15 +20,6 @@ jobs:
       contents: read
       security-events: write
 
-    # strategy:
-    #   fail-fast: false
-      # matrix:
-      #   language: [ 'java' ]
-        # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
-        # Use only 'java' to analyze code written in Java, Kotlin or both
-        # Use only 'javascript' to analyze code written in JavaScript, TypeScript or both
-        # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
-
     uses:
       mburton-crawfordtech/test_workflows/.github/workflows/java-codeql.yml@main
     # with:
@@ -36,4 +27,5 @@ jobs:
       # maven-params: '-DskipTests'
       # working-directory: './foo/'
     secrets:
-      token: ${{ secrets.PACKAGE_REPO_TOKEN }} # pass just this secret
+      token: ${{ secrets.PACKAGE_REPO_TOKEN }} # pass token to access other private dependencies
+      # token: ${{ secrets.GITHUB_TOKEN }} # otherwise pass the default token

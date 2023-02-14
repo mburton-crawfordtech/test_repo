@@ -1,4 +1,3 @@
-
 name: Docker image build
 
 on:
@@ -20,4 +19,5 @@ jobs:
       maven-params: '-DskipTests'
       # working-directory: './foo/'
     secrets:
-      token: ${{ secrets.PACKAGE_REPO_TOKEN }} # pass just this secret
+      token: ${{ secrets.PACKAGE_REPO_TOKEN }} # pass token to access other private dependencies
+      # token: ${{ secrets.GITHUB_TOKEN }} # otherwise pass the default token
