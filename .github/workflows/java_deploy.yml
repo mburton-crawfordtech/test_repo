@@ -14,7 +14,7 @@ jobs:
       packages: write
 
     uses:
-      mburton-crawfordtech/test_workflows/.github/workflows/java-maven-deploy.yml@main
+      CrawfordTech-Dev/reusable_workflows/.github/workflows/java-maven-deploy.yml@main
     with:
       # java-version: '17'
       maven-params: '-DskipTests'
