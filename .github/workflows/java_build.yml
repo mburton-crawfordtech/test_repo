@@ -17,3 +17,4 @@ jobs:
     secrets:
       token: ${{ secrets.PACKAGE_REPO_TOKEN }} # pass token to access other private dependencies
       # token: ${{ secrets.GITHUB_TOKEN }} # otherwise pass the default token
+
