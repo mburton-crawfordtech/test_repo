@@ -72,16 +72,22 @@ jobs:
     # - run: |
     #     echo "Run, Build Application using script"
     #     ./location_of_script_within_repo/buildscript.sh
+    # - name: Run Java Maven build action
+    #   uses: mburton-crawfordtech/test_workflows/java-maven-build-action@main
+    #   with:
+        # java-version: ${{ inputs.java-version }}
+        # maven-params: ${{ inputs.maven-params }}
+        # token: ${{ secrets.github.token }}  # for access to internal packages
+        # token: ${{ secrets.PACKAGE_REPO_TOKEN }}  # for access to internal packages
+    # - name: Autobuild
     - name: Run Java Maven build action
-      uses: mburton-crawfordtech/test_workflows/java-maven-build-action@main
+      uses:
+        mburton-crawfordtech/test_workflows/.github/workflows/java-maven-build.yml@main
       with:
         # java-version: ${{ inputs.java-version }}
         # maven-params: ${{ inputs.maven-params }}
         # token: ${{ secrets.github.token }}  # for access to internal packages
         token: ${{ secrets.PACKAGE_REPO_TOKEN }}  # for access to internal packages
-    - name: Autobuild
-      uses:
-        mburton-crawfordtech/test_workflows/.github/workflows/java-maven-build.yml@main
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
