@@ -30,7 +30,7 @@ jobs:
         # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
 
     uses:
-      mburton-crawfordtech/test_workflows/.github/workflows/java-maven-build.yml@main
+      mburton-crawfordtech/test_workflows/.github/workflows/java-codeql.yml@main
     # with:
       # java-version: 11.0
       # maven-params: '-DskipTests'
